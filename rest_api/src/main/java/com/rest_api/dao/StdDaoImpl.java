@@ -1,5 +1,8 @@
 package com.rest_api.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,21 +13,36 @@ import com.rest_api.model.Student;
 
 @Repository
 public class StdDaoImpl implements StdDao {
-	
+
 	@Autowired
 	SessionFactory factory;
+
+	Session session = null;
+
+	Transaction tx = null;
 
 	@Override
 	public Student createStudent(Student student) {
 
-		Session session=factory.openSession();
-		Transaction tx=session.beginTransaction();
-		
+		session = factory.openSession();
+		tx = session.beginTransaction();
+
 		session.save(student);
-		
+
 		tx.commit();
-		
+
 		return student;
+	}
+
+	@Override
+	public List<Student> getAllStudent() {
+
+		session = factory.openSession();
+		tx = session.beginTransaction();
+		
+		List<Student> std=session.createQuery("from Student").list();
+
+		return std;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.rest_api.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class StdServiceImpl implements StdService {
 	@Override
 	public Student createStudent(Student student) {
 		return dao.createStudent(student);
+	}
+
+	@Override
+	public List<Student> getAllStudent() {
+		return dao.getAllStudent();
 	}
 
 }
